@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Técnico de Progresso - IntegraCAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos ABNT/CNPQ Simplificados */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            font-size: 14px;
+        }
+        .report-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .primary-color {
+            color: #c2410c; /* Laranja Escuro */
+        }
+        .bg-primary {
+            background-color: #c2410c;
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+        
+        /* Estilo específico para impressão (ABNT/CNPq Export) */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .report-container {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+            }
+            body {
+                background-color: white;
+            }
+            /* Garante que o gráfico e tabelas sejam bem visíveis */
+            canvas {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="p-6">
+
+    <div id="report-content" class="report-container">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-2xl md:text-3xl font-bold primary-color">RELATÓRIO TÉCNICO MENSAL DE PROGRESSO</h1>
+            <p class="text-gray-600 mt-1">Projeto DI 016/2025 - IntegraCAR: Integração do Cadastro Ambiental Rural no Estado do Espírito Santo</p>
+            
+            <table class="mx-auto mt-4 text-sm border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-50">
+                        <th class="px-4 py-2 border-b">Função</th>
+                        <th class="px-4 py-2 border-b">Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 py-2 text-left">Coordenador do Projeto</td>
+                        <td class="px-4 py-2 text-left font-semibold">Salomão Martins de Carvalho Júnior</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-left">Bolsista Orientador (Ifes)</td>
+                        <td class="px-4 py-2 text-left font-semibold">Mosar Faria Botelho</td>
+                    </tr>
+                </tbody>
+            </table>
+        </header>
+
+        <div class="text-center mb-8 no-print">
+            <button onclick="window.print()" class="px-6 py-2 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-orange-700 transition duration-300">
+                Exportar para PDF/Imprimir (Padrão ABNT/CNPq)
+            </button>
+        </div>
+
+        
+        <section class="mb-8">
+            <h2 class="text-xl font-bold border-b pb-1 primary-color">1 INTRODUÇÃO E OBJETIVOS DO PROJETO</h2>
+            
+            <h3 class="text-lg font-semibold mt-3">1.1 Objetivo Geral</h3>
+            <p class="text-gray-700 text-justify">
+                O objetivo geral do projeto IntegraCAR é realizar a coleta de informações dos imóveis rurais para subsidiar a análise e validação dos Cadastros Ambientais Rurais (CAR), garantindo a integração de dados, a gestão sustentável do patrimônio imobiliário e a conformidade legal.
+            </p>
+
+            <h3 class="text-lg font-semibold mt-3">1.2 Objetivos Específicos</h3>
+            <p class="text-gray-700">
+                A execução das atividades reportadas nos meses de Setembro e Outubro visou a progressão dos seguintes objetivos específicos (O.E.):
+            </p>
+            <ul class="list-disc ml-6 text-gray-700 text-sm mt-2">
+                <li>**O.E. 3:** Mapear entraves críticos (tecnológicos, operacionais e normativos).</li>
+                <li>**O.E. 4:** Implementar ações coordenadas para inscrição e análise do CAR, incluindo capacitação de pesquisadores.</li>
+                <li>**O.E. 5:** Desenvolver soluções analíticas, incluindo os dados do CAR no banco de dados (Data Lake) da Seger, para garantir o monitoramento contínuo.</li>
+                <li>**O.E. 7:** Realizar a digitalização dos processos físicos do CAR, assegurando a conversão integral dos documentos.</li>
+                <li>**O.E. 8:** Testar aplicações de Inteligência Artificial (IA) na interpretação de documentos.</li>
+                <li>**O.E. 10:** Fortalecer a governança entre as partes interessadas.</li>
+                <li>**O.E. 12:** Desenvolver um programa de capacitação continuada para alunos.</li>
+            </ul>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-xl font-bold border-b pb-1 primary-color">2 RELAÇÃO ENTRE ATIVIDADES E OBJETIVOS ESPECÍFICOS</h2>
+            
+            <p class="text-gray-700 text-justify mb-4">
+                As 26 atividades desenvolvidas foram categorizadas em três pilares, demonstrando forte aderência aos objetivos estratégicos do IntegraCAR e comprovando o avanço progressivo do projeto das fases de estruturação para as de implementação tecnológica.
+            </p>
+            
+            <h3 class="text-lg font-semibold mt-3 text-red-700">2.1 Pilar 1: Capacitação e Estrutura (10 Atividades)</h3>
+            <p class="text-gray-700 text-justify text-sm">
+                O foco integral do mês de Setembro foi a criação da base de trabalho. A *Seleção dos bolsistas* e o *Curso de capacitação* cumprem diretamente o **O.E. 12** e **O.E. 4**. As atividades de reforma, rede e elétrica garantiram o ambiente físico necessário para as fases subsequentes, suportando as ações coordenadas do projeto.
+            </p>
+
+            <h3 class="text-lg font-semibold mt-3 text-blue-700">2.2 Pilar 2: Fluxo Operacional (5 Atividades)</h3>
+            <p class="text-gray-700 text-justify text-sm">
+                As tarefas de início de Outubro concentraram-se na formalização de processos, essenciais para a escalabilidade. A *Visita à IDAF*, o *Desenvolvimento de fluxo operacional* e a *Burocratização* da relação entre equipes atendem diretamente ao mapeamento de entraves operacionais (**O.E. 3**) e ao fortalecimento da governança (**O.E. 10**).
+            </p>
+
+            <h3 class="text-lg font-semibold mt-3 text-green-700">2.3 Pilar 3: TI & Automação (11 Atividades)</h3>
+            <p class="text-gray-700 text-justify text-sm">
+                Com o maior volume em Outubro, este pilar é o mais convergente com a inovação tecnológica. As tarefas de busca de APPs para *paginar* e *eliminar páginas vazias* cumprem o **O.E. 7** (Digitalização). As atividades complexas de *Gerar análise documental por meio da API*, *Criação de DashBoard* e *Vínculo ao SIMLAM* atendem diretamente aos **O.E. 5** (Soluções Analíticas) e **O.E. 8** (Testes de IA/Análise de Dados), representando o cerne da automação do projeto.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-xl font-bold border-b pb-1 primary-color">3 RESULTADOS CONSOLIDADOS E ANÁLISE GRÁFICA</h2>
+
+            <h3 class="text-lg font-semibold mt-4">3.1 Tabela 1: Distribuição de Atividades por Pilar e Mês (N=26)</h3>
+            <div class="overflow-x-auto my-3">
+                <table class="min-w-full divide-y divide-gray-200 border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mês</th>
+                            <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Capacitação / Estrutura</th>
+                            <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Fluxo Operacional</th>
+                            <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">TI & Automação</th>
+                            <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-white uppercase tracking-wider bg-primary">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                        <tr><td class="px-4 py-2 font-semibold primary-color">Setembro</td><td class="px-4 py-2 text-center">10</td><td class="px-4 py-2 text-center">0</td><td class="px-4 py-2 text-center">0</td><td class="px-4 py-2 text-center bg-gray-100 font-bold">10</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold primary-color">Outubro</td><td class="px-4 py-2 text-center">0</td><td class="px-4 py-2 text-center">5</td><td class="px-4 py-2 text-center">11</td><td class="px-4 py-2 text-center bg-gray-100 font-bold">16</td></tr>
+                        <tr class="bg-amber-100 font-bold border-t-2 border-primary"><td class="px-4 py-2 primary-color">Total Geral</td><td class="px-4 py-2 text-center">10</td><td class="px-4 py-2 text-center">5</td><td class="px-4 py-2 text-center">11</td><td class="px-4 py-2 text-center bg-primary text-white">26</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-lg font-semibold mt-4">3.2 Gráfico 2: Distribuição Mensal de Atividades por Pilar</h3>
+            <p class="text-gray-700 text-sm">Gráfico de Barras Empilhadas (Setembro vs. Outubro).</p>
+            <div class="chart-container mt-4 mx-auto" style="max-width: 600px; height: 350px;">
+                <canvas id="monthlyBarChart"></canvas>
+            </div>
+
+            <h3 class="text-lg font-semibold mt-6">3.3 Gráfico 3: Distribuição Total de Atividades por Pilar (N=26)</h3>
+            <p class="text-gray-700 text-sm">Gráfico de Setor (Doughnut) mostrando o investimento total de esforço.</p>
+            <div class="chart-container mt-4 mx-auto" style="max-width: 400px; height: 400px;">
+                <canvas id="totalDoughnutChart"></canvas>
+            </div>
+
+        </section>
+
+
+        <section>
+            <h2 class="text-xl font-bold border-b pb-1 primary-color">4 DETALHAMENTO COMPLETO DAS ATIVIDADES (N=26)</h2>
+            
+            <div class="overflow-x-auto mt-4 shadow-md rounded-lg">
+                <table id="detailed-activities-table" class="min-w-full divide-y divide-gray-200 border border-gray-200">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium uppercase tracking-wider w-1/12">Data</th>
+                            <th scope="col" class="px-4 py-2 text-left text-xs font-medium uppercase tracking-wider w-1/12">Mês</th>
+                            <th scope="col" class="px-6 py-2 text-left text-xs font-medium uppercase tracking-wider w-5/12">Atividade</th>
+                            <th scope="col" class="px-6 py-2 text-left text-xs font-medium uppercase tracking-wider w-4/12">Pilar de Atuação</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-xs">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DADOS PARA O GRÁFICO E TABELAS ---
+            const pilares = ['Capacitação / Estrutura', 'Fluxo Operacional', 'TI & Automação'];
+            
+            // Dados para o Gráfico de Barras Mensal
+            const dataSetembro = [10, 0, 0];
+            const dataOutubro = [0, 5, 11];
+
+            // Dados para o Gráfico Total (Doughnut)
+            const totalData = [10, 5, 11]; // Total de atividades por pilar
+
+            // Dados detalhados de todas as 26 atividades
+            const allActivities = [
+                { date: "01/09/2025", month: "Setembro", activity: "Seleção dos bolsistas do projeto - entrevista segundo edital", pilar: "Capacitação / Estrutura" },
+                { date: "03/09/2025", month: "Setembro", activity: "Curso de capacitação a geração de CAR ministrado pela equipe IDAF e convidados", pilar: "Capacitação / Estrutura" },
+                { date: "06/09/2025", month: "Setembro", activity: "Alinhamento com equipe da TI de Ifes-Cachoeiro quanto a elaboração de ferramentas para auxílio no fluxo de trabalho.", pilar: "Capacitação / Estrutura" },
+                { date: "09/09/2025", month: "Setembro", activity: "Solicitação de enquadramento da reforma das sala usando Drywall", pilar: "Capacitação / Estrutura" },
+                { date: "09/09/2025", month: "Setembro", activity: "Diagramação dos prazos de entrega das reformas", pilar: "Capacitação / Estrutura" },
+                { date: "15/09/2025", month: "Setembro", activity: "Planejamento e compatibilização da elétrica com o layout, visando circuito nobreak", pilar: "Capacitação / Estrutura" },
+                { date: "26/09/2025", month: "Setembro", activity: "Vistoria da entrega das reformas", pilar: "Capacitação / Estrutura" },
+                { date: "27/09/2025", month: "Setembro", activity: "Acompanhamento dos serviços de rede para instalação dos computadores", pilar: "Capacitação / Estrutura" },
+                { date: "26/09/2025", month: "Setembro", activity: "Ajuste para adaptação das calhas no corretor, adaptando a expansão", pilar: "Capacitação / Estrutura" },
+                { date: "29/09/2025", month: "Setembro", activity: "Reunião geral quanto a evolução dos trabalhos. Apresentação do fluxo de atividade do analista CAR para emissão do Certificado.", pilar: "Capacitação / Estrutura" },
+                { date: "02/10/2025", month: "Outubro", activity: "Visita a IDAF. Visualização da organização da estrutura das pastas e fluxo operacional.", pilar: "Fluxo Operacional" },
+                { date: "03/10/2025", month: "Outubro", activity: "Desenvolvimento de fluxo operacional para um processo CAR.", pilar: "Fluxo Operacional" },
+                { date: "02/10/2025", month: "Outubro", activity: "Burocratização do fluxo operacional entre Bolsistas, Orientadores e Consultores do IDAF.", pilar: "Fluxo Operacional" },
+                { date: "02/10/2025", month: "Outubro", activity: "Criação de estrutura (pastas) para o acompanhamento dos processos mediante as funções do trabalho operacional.", pilar: "Fluxo Operacional" },
+                { date: "06/10/2025", month: "Outubro", activity: "Encontrando contato do responsável pelas API do e-docs, e direcionamento ao responsável TI - Ifes Cachoeiro.", pilar: "TI & Automação" },
+                { date: "07/10/2025", month: "Outubro", activity: "Contato com o responsável da TI Ifes-Cachoeiro para alinhamento de atividades, enquanto não automatizou.", pilar: "TI & Automação" },
+                { date: "16/10/2025", month: "Outubro", activity: "Atribuição de Atividade 1 - buscar APP para paginar todas as frentes de docs digitalizados", pilar: "TI & Automação" },
+                { date: "16/10/2025", month: "Outubro", activity: "Atribuição de Atividade 2 - buscar APP para eliminar páginas vazias de docs digitalizados", pilar: "TI & Automação" },
+                { date: "16/10/2025", month: "Outubro", activity: "Atribuição de Atividade 3 - confecção de ofício de encerramento usando docs digitalizados", pilar: "TI & Automação" },
+                { date: "16/10/2025", month: "Outubro", activity: "Atribuição de Atividade 4 - Partindo do docs digitalizados, gerar planilha automática com colunas (Documento, Nome, Número)", pilar: "TI & Automação" },
+                { date: "16/10/2025", month: "Outubro", activity: "Atribuição de Atividade 5 - Gerar análise documental, por meio da API, criar relatório vinculando o resultado da análise com o SIMLAM. Apontar o caminho para o analista atuar.", pilar: "TI & Automação" },
+                { date: "22/10/2025", month: "Outubro", activity: "Criar diagrama com fluxo operacional e atividades da TI operacional após filtro e reuniões com especialistas do IDAF", pilar: "Fluxo Operacional" },
+                { date: "21/10/2025", month: "Outubro", activity: "Atribuição de atividade - Analise do Banco de Dados disponibilizado pelo Julierme do IDAF (tarefa indicada a Jaimel, Cristiano e Andre)", pilar: "TI & Automação" },
+                { date: "17/10/2025", month: "Outubro", activity: "Criação de DashBoard para organização dos resultados e contabilização dos índices", pilar: "TI & Automação" },
+                { date: "24/10/2025", month: "Outubro", activity: "Vinculo do DashBoard ao banco de dados do SIMLAM.", pilar: "TI & Automação" },
+                { date: "17/10/2025", month: "Outubro", activity: "Geração automática dos relatórios por meio do Dashboard.", pilar: "TI & Automação" }
+            ];
+
+            // --- LÓGICA DO GRÁFICO 2 (BARRAS EMPILHADAS) ---
+            const ctxBar = document.getElementById('monthlyBarChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: pilares,
+                    datasets: [
+                        {
+                            label: 'Setembro',
+                            data: dataSetembro,
+                            backgroundColor: '#FBBF24', // Amarelo/Laranja claro
+                            stack: 'Stack 1'
+                        },
+                        {
+                            label: 'Outubro',
+                            data: dataOutubro,
+                            backgroundColor: '#C2410C', // Laranja Escuro (Primary Color)
+                            stack: 'Stack 1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'Nº de Atividades por Mês e Pilar' } },
+                    scales: {
+                        x: { stacked: true, title: { display: true, text: 'Pilar de Atuação' } },
+                        y: { stacked: true, beginAtZero: true, title: { display: true, text: 'Nº de Atividades' }, ticks: { precision: 0 } }
+                    }
+                }
+            });
+
+            // --- LÓGICA DO GRÁFICO 3 (DOUGHNUT TOTAL) ---
+            const ctxDoughnut = document.getElementById('totalDoughnutChart').getContext('2d');
+            new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: pilares,
+                    datasets: [{
+                        data: totalData,
+                        backgroundColor: ['#FBBF24', '#3B82F6', '#10B981'], // C/E: Amarelo, F.O: Azul, TI: Verde
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'bottom' }, 
+                        title: { display: true, text: 'Distribuição Total de Esforço (N=26)' },
+                        tooltip: { callbacks: { label: function(context) { 
+                            let label = context.label || '';
+                            if (label) { label += ': '; }
+                            if (context.parsed !== null) { 
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed / total) * 100).toFixed(2) + '%';
+                                label += context.parsed + ' atividades (' + percentage + ')'; 
+                            }
+                            return label;
+                        } } } 
+                    },
+                    cutout: '60%'
+                }
+            });
+
+
+            // --- LÓGICA DA TABELA DETALHADA ---
+            const tableBody = document.querySelector('#detailed-activities-table tbody');
+            
+            allActivities.forEach((item, index) => {
+                const isOdd = index % 2 !== 0;
+                const row = document.createElement('tr');
+                row.className = isOdd ? 'bg-gray-50' : 'bg-white';
+                
+                let pilarColor;
+                if (item.pilar === 'Capacitação / Estrutura') pilarColor = 'text-red-700';
+                else if (item.pilar === 'Fluxo Operacional') pilarColor = 'text-blue-700';
+                else pilarColor = 'text-green-700';
+                
+                row.innerHTML = `
+                    <td class="px-4 py-2 whitespace-nowrap">${item.date}</td>
+                    <td class="px-4 py-2 whitespace-nowrap font-semibold">${item.month}</td>
+                    <td class="px-6 py-2">${item.activity}</td>
+                    <td class="px-6 py-2 font-medium ${pilarColor}">${item.pilar}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>
